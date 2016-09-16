@@ -13,7 +13,7 @@
     <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
    <script type="text/javascript" src="./stops.geojson"></script>
    /*Initial stop loaded*/
-   <script type="text/javascript" src="./2119.js"></script>
+   <script type="text/javascript" src="./data/2119-cheat.js"></script>
     <title>OpenLayers 3 example</title>
   </head>
   <body>
@@ -21,7 +21,7 @@
     <div id="map" class="map"></div>
     <div id="stop-info"></div>
     <script type="text/javascript">
-      var baseurl = 'http://localhost:8000/';
+      var baseurl = 'http://www.cs.rhul.ac.uk/~adamskiy/bushopper_beta/data/';
       var vectorSource = new ol.source.Vector({
         features: (new ol.format.GeoJSON()).readFeatures(gjobj,{
         featureProjection: 'EPSG:3857'
@@ -94,14 +94,15 @@
       };
 
       var styleFunction = function(feature) {
-	var id = feature.getId();
-	var s;
-	if (id in distDict) {
-		s = distDict[id]
-	} else {
-		s = 5
-	}
-        return styles[s];
+	      var id = feature.getId();
+	      var s;
+	      if (id in distDict) {
+		      s = distDict[id];
+	      } else {
+		      s = 5;
+	      }
+	      return styles[s];
+
       };
 
       var vectorLayer = new ol.layer.Vector({

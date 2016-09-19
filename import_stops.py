@@ -2,8 +2,8 @@
 import math
 import sys
 import time
-from geojson import Feature, Point, FeatureCollection
-import geojson
+#from geojson import Feature, Point, FeatureCollection
+#import geojson
 import json
 from get_geo_neighbours import get_stops_and_interchanges
 from process_routes import process_routes
@@ -88,13 +88,15 @@ def dict_dump(dict_file, d):
 def main(argv):
   (stops, neighb) = get_stops_and_interchanges(argv[1])
   adj_lists = process_routes(argv[2], stops)
+  datadir = argv[3]
   add_interchanges(stops, adj_lists, neighb)
   t = time.time()
-  #d = dijkstra(adj_lists, stops, neighb, '2196')
-  d = cheat_dijkstra(adj_lists, stops, neighb, '2196')
+#  d = cheat_dijkstra(adj_lists, stops, neighb, 'RTP117')
+  for stop in stops:
+    d = cheat_dijkstra(adj_lists, stops, neighb, stop)
+    dict_dump(datadir+stop+'-cheat.js',d)
   elapsed = time.time() - t
   print "Elapsed time: " + str(elapsed)
-  dict_dump('2196-cheat.js',d)
   #json_dump('./bus_stops_coords.csv',d)
 
 if __name__ == "__main__":

@@ -26,7 +26,7 @@ def process_routes(filename, stops):
   for stop in stops:
     adj_lists[stop] = set()
   for route in routes:
-    if route[0] != 'N':
+    if route[0] != 'N' and route[0:2] != 'UL' and route[0:2] != 'RT':
       process_route(routes[route], adj_lists)
   #print len(adj_lists['34323'])
   #print len(adj_lists['34323'])
